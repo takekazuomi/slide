@@ -1,4 +1,6 @@
 MARP_CLI=marpteam/marp-cli:v1.1.1
+MD_FILES=$(wildcard docs/*.md)
+PDF_FILES=$(MD_FILES:md=pdf)
 
 help::	## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
@@ -9,13 +11,12 @@ up:: 	## up serve
 down::	## stop
 	@docker stop marp
 
-pdf::	## pdf
-	@mkdir -p docs/tmp; \
+docs/%.pdf: docs/%.md
 	docker run --rm --init \
-		-v ${PWD}/docs:/home/marp/app/ -e LANG=${LANG} -e MARP_USER="$(id -u):$(id -g)" \
+		-v ${PWD}:/home/marp/app/ -e LANG=${LANG} -e MARP_USER="$(id -u):$(id -g)" \
 		$(MARP_CLI) \
-		20201125-jazugn29-bicep.md \
-		-o tmp/20201125-jazugn29-bicep.pdf \
+		$< \
+		-o $@ \
 		--pdf --allow-local-files
 
 marp::	## marp-cli
@@ -23,3 +24,4 @@ marp::	## marp-cli
 		-v ${PWD}/docs:/home/marp/app/ -e LANG=${LANG} -e MARP_USER="$(id -u):$(id -g)" \
 		$(MARP_CLI)
 
+pdf: $(PDF_FILES)
