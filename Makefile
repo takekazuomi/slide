@@ -1,4 +1,4 @@
-MARP_CLI=marpteam/marp-cli:v1.1.1
+MARP_CLI=marpteam/marp-cli:v1.4.0
 MD_FILES=$(wildcard docs/*.md)
 PDF_FILES=$(MD_FILES:md=pdf)
 
@@ -24,4 +24,5 @@ marp::	## marp-cli
 		-v ${PWD}/docs:/home/marp/app/ -e LANG=${LANG} -e MARP_USER="$(id -u):$(id -g)" \
 		$(MARP_CLI)
 
-pdf: $(PDF_FILES)
+pdf:: 	## generate pdfs
+pdf:: $(PDF_FILES)
