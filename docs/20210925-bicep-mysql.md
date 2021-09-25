@@ -30,7 +30,7 @@ section {
 
 ###### by Takekazu Omi(*@Baleen.Studio*)
 
-###### 2021/09/25 v1.0.0
+###### 2021/09/25 v1.1.0
 
 ![left w:300px](https://www.baleen.studio/img/company/img-symbol.png)
 
@@ -84,6 +84,26 @@ section {
 - [firewallRules(IP)](https://github.com/takekazuomi/bicep-random-note/blob/main/src/0917/09/mysql.bicep#L119)
 - [virtualNetworkRules(Subnet)](https://github.com/takekazuomi/bicep-random-note/blob/main/src/0917/09/mysql.bicep#L109)
 - [Log Analytics](https://github.com/takekazuomi/bicep-random-note/blob/main/src/0917/09/diagnosticSettings/mysql.bicep#L13)
+
+さらに時間があれば
+
+# bicep registry
+
+8/24 あたりにmainにマージされた、bicep registry の紹介
+
+PRは、このへん
+
+- <https://github.com/Azure/bicep/pull/4144>
+
+使ってみた例は、このへん
+
+- <https://github.com/takekazuomi/bicep-random-note/tree/main/src/0924>
+
+# 今回のコンテンツ
+
+- GitHub [20210925-bicep-mysql](https://github.com/takekazuomi/slide/blob/main/docs/20210925-bicep-mysql.md)
+- Slide share [20210925-bicep-mysql](https://www.slideshare.net/takekazuomi/bicep-mysql/takekazuomi/bicep-mysql)
+- Powerd by [Marp](https://github.com/marp-team/marp-cli#docker)。ありがとうございました。
 
 # 終
 
