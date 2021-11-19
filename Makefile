@@ -1,4 +1,4 @@
-MARP_CLI=marpteam/marp-cli:v1.4.0
+MARP_CLI=marpteam/marp-cli:v1.4.2
 MD_FILES=$(wildcard docs/*.md)
 PDF_FILES=$(MD_FILES:md=pdf)
 
