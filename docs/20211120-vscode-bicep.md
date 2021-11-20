@@ -85,7 +85,7 @@ section {
 
 ## :muscle: :muscle: :muscle:
 
-# **bicep :muscle:の** :+1: :-1
+# **Bicep :muscle:の** :+1: :-1
 
 - :+1:
   - ARM Template直より100倍楽に書ける
@@ -94,41 +94,39 @@ section {
   - ARM Template の根本的制約は解決できない
     - ↑このアタリは別途
 
-# Bicep + VSCode
+# Bicepへの道
 
-- Bicepの良さの半分はVCodeで出来ている
-- Azure リソースの型情報を使って、VSCode上でLangage Serverを動かしてインテリセンスを実装
-- 型情報は、[azure-rest-api-specs](https://github.com/Azure/azure-rest-api-specs/blob/b49af808cba06f45b01193623ce1ff9e2e017777/specification/containerregistry/resource-manager/Microsoft.ContainerRegistry/preview/2021-06-01-preview/containerregistry.json#L3960-L3980)を元に作ってる
-  - api specs が間違っていることがあるが、積極的に直す方針らしい :smile:
-    - <https://github.com/Azure/bicep/issues/4577>
+ARM Template の生産性が低い、どうすれば？ :weary:
 
-# 解決への道
-
+- JSONの冗長性を避ける独自構文
+  - DSLの導入
 - 型を導入
-- JSONの廃止して独自構文
+  - IDE支援の強化、インテリセンス(=LanguageServerの実装）
 
-※ ARM Template と Bicepの関係は、JavaScript とTypeScriptに類似
+※ ARM Template と Bicepの関係は、JS と TSに類似
 
 # 型の導入
 
-- 元々Azure Resource には型がある
-- api specs として、型情報が公開されている
-  - swagger(Open API)
-- ここから、型情報を作る
-  - <https://github.com/Azure/bicep-types-az>
-- 出来上がったものは、nugetにある
-  - <https://www.nuget.org/packages/Azure.Bicep.Types.Az/>
-  - <https://www.nuget.org/packages/Azure.Bicep.Types/>
-  - Type情報の実体は、
-    - api spec から抜き出して、作ったJSONをリソースで埋め込んでる。
+- 元々Azure Resource の型情報は、[azure-rest-api-specs](https://github.com/Azure/azure-rest-api-specs/blob/b49af808cba06f45b01193623ce1ff9e2e017777/specification/containerregistry/resource-manager/Microsoft.ContainerRegistry/preview/2021-06-01-preview/containerregistry.json#L3960-L3980)で公開
+  - swagger(Open API)の形式から、Bicep用の型情報を生成
+    - <https://github.com/Azure/bicep-types-az>
+  - 出来上がったものは、[nuget: Azure.Bicep.Types.Az](https://www.nuget.org/packages/Azure.Bicep.Types.Az/) にある
+  - Type情報の実体は、api spec から抜き出したJSONをリソースに埋込んだもの
 
 # Bicep LanguageServer
 
 - <https://github.com/Azure/bicep/tree/main/src/Bicep.LangServer>
-  - Bicep.LangServer.dll
   - 型情報があるので、エディターでの自動補完の範囲が増えた
+  - <https://microsoft.github.io/language-server-protocol/>
 
-# Demo
+# Bicep + VSCode
+
+- Bicepの良さの半分はVCodeで出来ている
+- Azure リソースの型情報を使って、VSCode上でLangage Serverを動かしてインテリセンスを実装
+  - api specs が間違っていることがあるが、積極的に直す方針らしい :smile:
+    - <https://github.com/Azure/bicep/issues/4577>
+
+# Demo - IntelliSense
 
 <https://github.com/Azure/bicep/tree/main/src/vscode-bicep>
 
@@ -140,27 +138,45 @@ section {
 6. Outline view and breadcrumb view
 7. Refactoring
 
-# どんなAzureの新機能でも対応
+# Demo - devcontainerでの利用
 
-Azure Native APIなので、新機能にも即時に対応できる。
+- 現状 futures に対応していない
+- ["Azure Bicep (Community)"](https://github.com/microsoft/vscode-dev-containers/tree/v0.205.2/containers/azure-bicep) コンテナがあるが
+  - azure cliか、azure poshがあれば足りる
+  - 手でdevcontainer.jsonに、bicep extensions を入れる
+
+```json
+"extensions": [
+  "ms-azuretools.vscode-bicep"
+],
+```
+
+# 新機能にも即時対応
+
+## Azure Native APIなので、新機能にも即時に対応
+
 しかし、ドキュメントがなかったり、肝心の型情報が無かったりで結構辛い。
-例: Azure Container Apps
+
+例: [Azure Container Apps](https://github.com/takekazuomi/container-apps05)
 
 # 最後に
 
-来週 11/25 20時から Tokyo Jazug Night でBicepの話をします
+### :zap: [Tokyo Jazug Night](https://jazug.connpass.com/event/228575/) 
 
-<https://jazug.connpass.com/event/228575/>
+- 11/25 20時、Bicep 0.5 の新機能
 
-興味がある方は是非
+### :zap: [ASK The Speeker](https://twitter.com/i/spaces/1DXxyDBqqLVJM)
+
+- Twitter Spaces URL（TrackB）
+- https://twitter.com/i/spaces/1DXxyDBqqLVJM
 
 ![bg right:40% auto](./media/pic05.png)
 
 # 今回のコンテンツ
 
 - GitHub [20211120-vscode-bicep](https://github.com/takekazuomi/slide/blob/main/docs/20211120-vscode-bicep.md)
-- Slide share [20211120-vscode-bicep](https://www.slideshare.net/takekazuomi/bicep-mysql/takekazuomi/?)
-- Powerd by [Marp](https://github.com/marp-team/marp-cli#docker)。ありがとうございました ::
+- Slide share [20211120-vscode-bicep](https://www.slideshare.net/takekazuomi/vscode-bicep)
+- Powerd by [Marp](https://github.com/marp-team/marp-cli#docker)。ありがとうございました :thumbsup:
 
 # 終
 
