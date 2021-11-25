@@ -6,7 +6,9 @@ help::	## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 up:: 	## up serve
-	@docker run --rm --init --name marp -v ${PWD}/docs:/home/marp/app -e LANG=${LANG} -e MARP_USER="$$(id -u):$$(id -g)" -p 8081:8080 -p 37717:37717 -d $(MARP_CLI) -s --allow-local-files .
+	@docker run --rm --init --name marp -v ${PWD}/docs:/home/marp/app \
+		-e LANG=${LANG} -e MARP_USER="$$(id -u):$$(id -g)" -p 8081:8080 -p 37717:37717 -d \
+		$(MARP_CLI) --html -s --allow-local-files .
 
 down::	## stop
 	@docker stop marp
@@ -17,6 +19,7 @@ docs/%.pdf: docs/%.md
 		$(MARP_CLI) \
 		$< \
 		-o $@ \
+		--html \
 		--pdf --allow-local-files
 
 marp::	## marp-cli
