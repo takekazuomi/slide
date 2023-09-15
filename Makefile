@@ -1,4 +1,4 @@
-MARP_CLI=marpteam/marp-cli:v1.4.2
+MARP_CLI=marpteam/marp-cli:v3.2.1
 MD_FILES=$(wildcard docs/*.md)
 PDF_FILES=$(MD_FILES:md=pdf)
 
@@ -29,3 +29,6 @@ marp::	## marp-cli
 
 pdf:: 	## generate pdfs
 pdf:: $(PDF_FILES)
+
+clean:: ## delete all pdfs
+	@rm -f docs/*.pdf
